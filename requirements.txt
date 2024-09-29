@@ -1,0 +1,5 @@
+networkx~=3.3
+graphviz~=0.20.3
+enum34~=1.1.10
+pathlib~=1.0.1
+antlr4-python3-runtime
