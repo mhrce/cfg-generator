@@ -23,7 +23,7 @@ def find_java_files(directory):
 def prompt():
     project_name = input("Enter your Project Name[1_tulibee]: ")
     is_verbose = input("Verbose graph draw (y/n)? ").startswith(("y", "Y"))
-    test_source_directory = "/Users/a.kazor/PycharmProjects/java-visitor/test_source/sf-poject/SF110-20130704-src/"
+    test_source_directory = ROOT_DIR + "/test_source/sf-poject/SF110-20130704-src/"
     file_path = "1_tullibee"
     test_source_directory = test_source_directory + project_name + "/src/main/" if project_name else test_source_directory + file_path + "/src/main/"
 
