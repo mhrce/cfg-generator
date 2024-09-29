@@ -63,13 +63,6 @@ def main():
             draw_CFG(g[1], end_nodes[g[0]], f"test_output/{project_name}/{Path(file).stem}/{g[0]}/{g[0]}", token_stream,
                      verbose=is_verbose)
 
-# def main():
-#     stream = FileStream('/Users/a.kazor/PycharmProjects/java-visitor/test_source/sf-poject/SF110-20130704-src/1_tullibee/src/main/java/com/ib/client/EReader.java', encoding="utf8")
-#     funcs, token_stream, end_nodes = extract(stream)
-#     for g in funcs.items():
-#         draw_CFG(g[1], end_nodes, f"test_output/0", token_stream,
-#                  verbose=True)
-
 
 if __name__ == '__main__':
     main()
