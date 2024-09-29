@@ -11,23 +11,26 @@ PEN_WIDTH = "2"
 
 
 def draw_CFG(graph, end_nodes, filename, token_stream=None, format="png", verbose=True):
-    gr = gv.Digraph(comment=filename, format=format, node_attr={"shape": "none"})
-    gr.node("start", style="filled", fillcolor="#aaffaa", shape="oval", fontsize=FONT_SIZE)
+    if graph.nodes:
+        gr = gv.Digraph(comment=filename, format=format, node_attr={"shape": "none"})
+        gr.node("start", style="filled", fillcolor="#aaffaa", shape="oval", fontsize=FONT_SIZE)
 
-    for node, data in graph.nodes.data():
-        block_contents = (stringify_block(data, token_stream) if verbose else stringify_block_lineno_only(data))
-        gr.node(str(node), label=build_node_template(node, block_contents))
+        for node, data in graph.nodes.data():
+            block_contents = (stringify_block(data, token_stream) if verbose else stringify_block_lineno_only(data))
+            gr.node(str(node), label=build_node_template(node, block_contents))
 
-    gr.node("end", style="filled", fillcolor="#aaffaa", shape="oval", fontsize=FONT_SIZE)
-    for f, t, data in graph.edges.data():
-        gr.edge(f"{str(f)}", f"{str(t)}", label=data["value"] if data else '', fontsize=FONT_SIZE, penwidth=PEN_WIDTH)
+        gr.node("end", style="filled", fillcolor="#aaffaa", shape="oval", fontsize=FONT_SIZE)
+        for f, t, data in graph.edges.data():
+            gr.edge(f"{str(f)}", f"{str(t)}", label=data["value"] if data else '', fontsize=FONT_SIZE, penwidth=PEN_WIDTH)
 
-    gr.edge("start", str(head_node(graph)) if len(graph.nodes) > 0 else "end", penwidth=PEN_WIDTH)
-    for end in end_nodes:
-        gr.edge(str(end[0]), "end", penwidth=PEN_WIDTH, label=end[1])
+        gr.edge("start", str(head_node(graph)) if len(graph.nodes) > 0 else "end", penwidth=PEN_WIDTH)
+        if end_nodes:
+            for end in end_nodes:
+                gr.edge(str(end[0]), "end", penwidth=PEN_WIDTH, label=end[1])
+        else:
+            gr.edge(str(last_node(graph)), "end", penwidth=PEN_WIDTH)
 
-    gr.render(f"{filename}-cfg.gv", view=True)
-
+        gr.render(f"{filename}-cfg.gv", view=False)
 
 def build_node_template(node_label, contents):
     b_len = len(contents.splitlines())
