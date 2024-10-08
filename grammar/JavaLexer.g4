@@ -934,7 +934,7 @@ fragment IdentifierPart:
 // Whitespace and comments
 //
 
-WS: [ \t\r\n\u000C]+ -> skip;
+WS  : (' '|'\r'|'\t'|'\n') -> channel(HIDDEN);
 
 COMMENT: '/*' .*? '*/' -> channel(HIDDEN);
 
